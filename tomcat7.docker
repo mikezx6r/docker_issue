@@ -1,0 +1,17 @@
+## Creates an image that contains a tomcat7 install
+##
+## To point this at a webapp, use the following command-line:
+##  docker run -d -p 80 --name {somename} -v {dir with webapp}:/var/lib/tomcat7/webapps/{webappcontext} {name of this image}
+
+FROM ubuntu:14.04
+
+ENV REFRESHED_AT 2015-02-18
+
+RUN apt-get -yqq update
+RUN apt-get -yqq install tomcat7 default-jdk
+
+ENV CATALINA_BASE /var/lib/tomcat7
+
+EXPOSE 8080
+
+ENTRYPOINT [ "/usr/share/tomcat7/bin/catalina.sh", "run" ]
